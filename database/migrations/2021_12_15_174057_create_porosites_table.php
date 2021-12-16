@@ -21,7 +21,6 @@ class CreatePorositesTable extends Migration
             $table->boolean('statusi');
             $table->text('koment')->default('0');
             $table->timestamps();
-
             $table->foreign('id_klientit')->references('id')->on('klientets');
             $table->foreign('id_detajet_e_porosise')->references('id')->on('detajet_e_porosises');
         });
