@@ -20,7 +20,7 @@ class CreatePagesatsTable extends Migration
             $table->unsignedDecimal('shuma', $precision = 8, $scale = 2);
             $table->timestamps();
 
-            //$table->foreign('id_klientit')->references('id')->on('klientets');
+            $table->foreign('id_klientit')->references('id')->on('klientets');
         });
     }
 

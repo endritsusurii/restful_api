@@ -22,7 +22,7 @@ class CreateProduktetsTable extends Migration
             $table->unsignedDecimal('cmimi', $precision = 8, $scale = 2);
             $table->timestamps();
 
-            //$table->foreign('id_detajet_e_produkteve')->references('id')->on('detajet_e_produkteves');
+            $table->foreign('id_detajet_e_produkteve')->references('id')->on('detajet_e_produkteves');
         });
     }
 
