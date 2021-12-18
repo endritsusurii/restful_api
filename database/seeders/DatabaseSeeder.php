@@ -14,5 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call([
+            KlientetTableSeeder::class,
+            PagesatTableSeeder::class,
+            Detajet_e_produkteveTableSeeder::class,
+            ProduktetTableSeeder::class,
+            Detajet_e_porosiseTableSeeder::class,
+            PorositeTableSeeder::class,
+        ]);
     }
 }

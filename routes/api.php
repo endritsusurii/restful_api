@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Klientet;
 use App\Models\Porosite;
+use App\Http\Controllers\Shikoporosite;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/porosite', function() {
-    return Porosite::all();
-});
+// Route::get('/porosite', function() {
+//     return Porosite::all();
+// });
 Route::get('/klientet', function() {
     return Klientet::all();
 });
+Route::get('/porosite', [Shikoporosite::class, 'index']);
