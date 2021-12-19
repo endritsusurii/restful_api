@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Shikoporosite extends Controller
+use App\Models\Pagesat;
+
+class ShikoPorositeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,7 +42,7 @@ class Shikoporosite extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Pagesat::create($request->all());
     }
 
     /**
