@@ -24,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/porosite', [ShikoporositeController::class, 'index']);
 Route::post('/pagesat', [ShikoporositeController::class, 'store']);
+Route::put('/update_produktet/{id}', [ShikoporositeController::class, 'update']);
+Route::delete('/delete_produktet/{id}', [ShikoporositeController::class, 'destroy']);

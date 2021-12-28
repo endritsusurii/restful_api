@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Pagesat;
+use App\Models\Produktet;
 
 class ShikoPorositeController extends Controller
 {
@@ -74,9 +75,12 @@ class ShikoPorositeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Produktet $produktet)
     {
-        //
+        
+        $produktet->update($request->all());
+
+        return $produktet;
     }
 
     /**
@@ -87,6 +91,17 @@ class ShikoPorositeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Produktet::where('id', $id)->exists()) {
+            $produktet = Produktet::find($id);
+            $produktet->delete();
+    
+            return response()->json([
+              "message" => "Produkti u fshi"
+            ], 202);
+          } else {
+            return response()->json([
+              "message" => "Produkti nuk ugjet"
+            ], 404);
+        }
     }
 }
