@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Pagesat;
-use App\Models\Produktet;
 
 class ShikoPorositeController extends Controller
 {
@@ -43,7 +42,15 @@ class ShikoPorositeController extends Controller
      */
     public function store(Request $request)
     {
-        return Pagesat::create($request->all());
+        $pagesat = new Pagesat;
+        $pagesat->id_klientit = $request->id_klientit;
+        $pagesat->data_pageses = $request->data_pageses;
+        $pagesat->shuma = $request->shuma;
+        $pagesat->save();
+
+        return response()->json([
+            "message" => "Pagesa u ruajt"
+        ], 201);
     }
 
     /**
@@ -75,12 +82,24 @@ class ShikoPorositeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produktet $produktet)
+    public function update(Request $request, $id)
     {
         
-        $produktet->update($request->all());
-
-        return $produktet;
+        if (Pagesat::where('id', $id)->exists()) {
+            $pagesat = Pagesat::find($id);
+            $pagesat->data_pageses = is_null($request->data_pageses) ? $pagesat->data_pageses : $request->data_pageses;
+            $pagesat->shuma = is_null($request->shuma) ? $pagesat->shuma : $request->shuma;
+            $pagesat->save();
+    
+            return response()->json([
+                "message" => "Të dhënat u përditësuan me sukses"
+            ], 200);
+            } else {
+            return response()->json([
+                "message" => "Pagesa nuk u gjet"
+            ], 404);
+            
+        }
     }
 
     /**
@@ -91,16 +110,16 @@ class ShikoPorositeController extends Controller
      */
     public function destroy($id)
     {
-        if(Produktet::where('id', $id)->exists()) {
-            $produktet = Produktet::find($id);
-            $produktet->delete();
+        if(Pagesat::where('id', $id)->exists()) {
+            $pagesat = Pagesat::find($id);
+            $pagesat->delete();
     
             return response()->json([
-              "message" => "Produkti u fshi"
+              "message" => "Pagesa u fshi"
             ], 202);
           } else {
             return response()->json([
-              "message" => "Produkti nuk ugjet"
+              "message" => "Pagesa nuk u gjet"
             ], 404);
         }
     }
